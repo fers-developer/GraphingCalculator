@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graphing Calculator</title>
+  <!-- LINKS -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- SCRIPTS -->
+  <script src="js/storage.js"></script>
+  <script defer src="js/app.js" type="module"></script>
+</head>
+<body>
+  <header>
+    <img src="./assets/logo.png" alt="Graphing Calculator Logo" class="header__img">
+    <h1 class="header__title">Graphing Calculator</h1>
+  </header>
+  <section id="main">
+    <aside>
+      <ul class="toolbar">
+        <li class="toolbar__item selected">
+            <i class="fas fa-circle"></i>
+            <div>
+              <p>Point</p>
+            </div>
+        </li>
+        <li class="toolbar__item">
+            <i class="fas fa-chart-bar"></i>
+            <div>
+              <p>Chart</p>
+            </div>
+        </li>
+      </ul>
+    </aside>
+    <section class="panel">
+      <h2 class="panel__title">Draw a point<span class="panel__title--question" id="showHelp"><i class="fas fa-question-circle"></span></i></h2>
+      <div class="panel-help">
+        <h3 class="panel-help__title">How it works?</h3>
+        <p class="panel-help__details">Enter an <em>x-value</em> and a <em>y-value</em>, then press "<strong>Draw</strong>"</p>
+      </div>
+      <div class="panel-form">
+        <div class="form-control">
+          <!-- <label for="">Axis X:</label> -->
+          <input type="number" name="" id="xAxis" placeholder="X-value:">
+        </div>
+        <div class="form-control">
+          <!-- <label for="">Axis Y:</label> -->
+          <input type="number" name="" id="yAxis" placeholder="Y-value:">
+        </div>
+        <div class="btn-container">
+          <button id="btnDraw" class="btn-container__draw"><p>Draw</p></button>
+          <button id="btnClear" class="btn-container__clear"><p>Clear</p></button>
+        </div>
+      </div>
+      <div class="panel-points"></div>
+      <template id="templatePoint">
+        <article class="point-container">
+          <div class="point-container__round"><div></div></div>
+          <div class="point-container__axes"></div>
+        </article>
+      </template>
+    </section>
+    <section class="canvas-container">
+      <canvas id="canvas">
+        <p>
+          Your browser doesn't support &lt;canvas&gt; element.
+          Please, downdload and use one of the following browsers:
+        </p>
+        <ul>
+          <li>Google Chrome</li>
+          <li>Mozilla Firefox</li>
+          <li>Opera</li>
+        </ul>
+    </section>
+    </canvas>
+  </section>
+  <footer>
+    <section class="contact">
+      <a class="contact__red" href="https://github.com/fers-developer" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+      <a class="contact__red" href="https://www.linkedin.com/in/luis-fernando-th/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a class="contact__red" href="https://twitter.com/fersdeveloper" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+    </section>
+  </footer>
+</body>
+</html>
