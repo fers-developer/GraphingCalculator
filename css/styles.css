@@ -14,13 +14,14 @@
   /* Box shadow */
   --shadow-header: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
   --shadow-section: 0 2px 4px -1px rgba(0,0,0,.2),0 1px 10px 0 rgba(0,0,0,.12),0 4px 5px 0 rgba(0,0,0,.14);
-  --shadow-button: 2px 2px 13px -1px rgba(101,87,210,0.5);
+  /* --shadow-button: 2px 2px 13px -1px rgba(101,87,210,0.5); */
+  --shadow-button: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
   /* Colors */
   --bg-color: #fff;
+  --color-selected: #6557d2;
   --font-color: #757575;
-  --font-color-title: rgba(0,0,0,.87);
-  --font-color-selected: #6557d2;
   --font-color-control: #666666;
+  --font-color-hover: rgba(0,0,0,.87);
   --footer-color: rgb(50, 50, 50);
 
   /* Fonts */
@@ -80,7 +81,7 @@ header
     font-size: 2.4rem;
     font-weight: 800;
     line-height: 2.6rem;
-    color: var(--font-color-selected);
+    color: var(--color-selected);
   }
 
 /* ============== */
@@ -159,7 +160,7 @@ header
 
   .selected
   {
-    color: var(--font-color-selected);
+    color: var(--color-selected);
   }
 
   /* Panel */
@@ -198,7 +199,7 @@ header
         .panel__title--question:hover
         {
           cursor: pointer;
-          color: var(--font-color-selected);
+          color: var(--color-selected);
         }
 
     .panel-help
@@ -206,7 +207,7 @@ header
       position: fixed;
       top: 80px;
       left: 140px;
-      visibility: hidden;
+      visibility: visible;
       width: 190px;
       height: 80px;
       padding: 0.8rem;
@@ -216,15 +217,15 @@ header
       box-shadow: var(--shadow-section);
       transition: visibility 0s, opacity 0.5s linear;
       overflow: hidden;
-      opacity: 0;
+      opacity: 1;
+      z-index: 1;
     }
-
 
       .panel-help__title
       {
         margin: 0 1rem;
         padding-bottom: 5px;
-        border-bottom: 1px solid var(--font-color-selected);
+        border-bottom: 1px solid var(--color-selected);
         font-size: 1.2rem;
         font-weight: 800;
         color: var(--font-color);
@@ -344,15 +345,15 @@ header
 
         .btn-container__draw
         {
-          background-color: var(--font-color-selected);
+          background-color: var(--color-selected);
           color: var(--bg-color);
         }
 
         .btn-container__clear
         {
-          border: 1px solid var(--font-color-selected);
+          border: 1px solid var(--color-selected);
           background-color: var(--bg-color);
-          color: var(--font-color-selected);
+          color: var(--color-selected);
         }
 
     .panel-points
@@ -412,7 +413,7 @@ header
           margin: 0 auto;
           border: none;
           border-radius: 100%;
-          background-color: var(--font-color-selected);
+          background-color: var(--color-selected);
         }
 
         .point-container__round.point-container__square div
@@ -431,9 +432,51 @@ header
   /* Canvas */
   .canvas-container
   {
+    position: relative;
     width: 100%;
     height: 100%;
   }
+
+    [class^="canvas-container__btn"]
+    {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border: none;
+      border-radius: 100%;
+      outline: none;
+      background-color: var(--bg-color);
+      box-shadow: var(--shadow-button);
+      font-size: 1.4rem;
+      color: var(--font-color);
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 150ms ease 0ms;
+    }
+
+    [class^="canvas-container__btn"]:hover
+    {
+      background-color: #eee;
+      color: var(--font-color-hover);
+    }
+
+    [class$="home"]
+    {
+      right: 10px;
+      bottom: 100px;
+    }
+
+    [class$="plus"]
+    {
+      right: 10px;
+      bottom: 60px;
+    }
+
+    [class$="minus"]
+    {
+      right: 10px;
+      bottom: 20px;
+    }
 
 /* ============== */
 /*     FOOTER     */
@@ -466,3 +509,12 @@ footer
       color: var(--bg-color);
       text-decoration: none;
     }
+
+/* ============== */
+/*     GLOBAL     */
+/* ============== */
+.hidden
+{
+  visibility: hidden;
+  opacity: 0;
+}
