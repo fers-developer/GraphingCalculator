@@ -1,22 +1,24 @@
 class Draw
 {
-  constructor(canvasEl, factor)
+  constructor(canvasEl, factor, fontSize)
   {
-    setItem("letter", "A");
-    setItem("points", {});
     this.canvas = canvasEl;
     this.factor = factor;
+    this.fontSize = fontSize;
     this.ctx = this.canvas.getContext("2d");
     this.render = this.render.bind(this);
     this.handleClick_home = this.handleClick_home.bind(this);
     this.handleClick_zoomIn = this.handleClick_zoomIn.bind(this);
     this.handleClick_zoomOut = this.handleClick_zoomOut.bind(this);
     this.render();
+    setItem("letter", "A");
+    setItem("points", {});
   }
 
   render()
   {
     this.resizeCanvas();
+
     this.getOrigin();
 
     // draw the lines in axis X
@@ -30,10 +32,9 @@ class Draw
     this.drawLine(this.originX*this.factor, this.canvas.height, this.originX*this.factor, 0, 1.5);
     this.drawLine(0, this.canvas.height-(this.originY*this.factor), this.canvas.width, this.canvas.height-(this.originY*this.factor), 1.5);
 
-    this.drawNumbers(this.originX, this.originY);
+    this.drawNumbers();
     
     this.getPoints();
-    this.toggleVisibility();
   }
 
   /*=======================*/
@@ -50,41 +51,44 @@ class Draw
     this.ctx.closePath();
   }
 
+  drawLabel(x, y, label, size1=0, size2=0, color="#000", style="")
+  {
+    let pointX = Math.round(x);
+    let pointY = Math.round(y);
+    let textX = (pointX + size1);
+    let textY = Math.round(pointY + size2 + 5);
+
+    this.ctx.beginPath();
+    this.ctx.font = `${style} ${this.fontSize}px sans-serif`;
+    this.ctx.fillStyle = color;
+    this.ctx.textAlign = "center";
+    this.ctx.fillText(label, textX, textY);
+    this.ctx.closePath();
+  }
+
   drawNumbers(cx, cy)
   {
     let count = 0;
 
     /* Axis X (Positive) */
     count = 1;
-    for (let i = (cx*this.factor)+this.factor; i < this.canvas.width; i += this.factor)
-      this.drawLabel(i, this.canvas.height-(cy*this.factor), count++, null, 8);
+    for (let i = (this.originX*this.factor)+this.factor; i < this.canvas.width; i += this.factor)
+      this.drawLabel(i, this.canvas.height-(this.originY*this.factor), count++, null, 8);
     
     /* Axis Y (Positive) */
     count = 1;
-    for (let i = this.canvas.height-((cy*this.factor)+this.factor); i > 0; i -= this.factor)
-      this.drawLabel((cx)*this.factor, i, count++, -10);
+    for (let i = this.canvas.height-((this.originY*this.factor)+this.factor); i > 0; i -= this.factor)
+      this.drawLabel((this.originX)*this.factor, i, count++, -10);
 
     /* Axis X (Negative) */
     count = 0;
-    for (let i = (cx*this.factor)-this.factor; i > 0; i -= this.factor)
-      this.drawLabel(i, this.canvas.height-(cy*this.factor), --count, null, 8);
+    for (let i = (this.originX*this.factor)-this.factor; i > 0; i -= this.factor)
+      this.drawLabel(i, this.canvas.height-(this.originY*this.factor), --count, null, 8);
 
     /* Axis Y (Negative) */
     count = 0;
-    for (let i = this.canvas.height-((cy*this.factor)-this.factor); i < this.canvas.height; i += this.factor)
-      this.drawLabel((cx*this.factor), i, --count, -10);
-  }
-
-  drawLabel(x, y, label, size1=0, size2=0, color="#000")
-  {
-    let pointX = Math.round(x);
-    let pointY = Math.round(y);
-    let textX = (pointX + size1);
-    let textY = Math.round(pointY + size2 + 5);
-    this.ctx.font = "10px sans-serif";
-    this.ctx.fillStyle = color;
-    this.ctx.textAlign = "center";
-    this.ctx.fillText(label, textX, textY);
+    for (let i = this.canvas.height-((this.originY*this.factor)-this.factor); i < this.canvas.height; i += this.factor)
+      this.drawLabel((this.originX*this.factor), i, --count, -10);
   }
 
   /*=======================*/
@@ -96,6 +100,8 @@ class Draw
     if (this.factor !== 50) 
     {
       this.factor = 50;
+      this.toggleSize();
+      this.toggleVisibility();
       this.render();
     }
   }
@@ -105,6 +111,7 @@ class Draw
     if (this.factor < 85) 
     {
       this.factor += 5;
+      this.toggleSize();
       this.toggleVisibility();
       this.render();
     }
@@ -115,6 +122,7 @@ class Draw
     if (this.factor > 20) 
     {
       this.factor -= 5;
+      this.toggleSize();
       this.toggleVisibility();
       this.render();
     }
@@ -156,6 +164,15 @@ class Draw
   {
     if (this.factor === 50) btnHome.classList.add("hidden");
     if (this.factor == 45 || this.factor == 55) btnHome.classList.remove("hidden");
+  }
+
+  toggleSize()
+  {
+    if (this.factor >= 20 && this.factor < 35) this.fontSize = 9;
+    else if (this.factor >= 35 && this.factor < 50) this.fontSize = 10;
+    else if (this.factor >= 50 && this.factor < 60) this.fontSize = 11;
+    else if (this.factor >= 60 && this.factor < 75) this.fontSize = 12;
+    else this.fontSize = 13;
   }
 }
 

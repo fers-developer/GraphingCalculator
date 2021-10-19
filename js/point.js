@@ -3,12 +3,12 @@ import { colorHEX, } from "./colors.js";
 
 class Point extends Draw
 {
-  constructor(canvasEl, factor = 50)
+  constructor(canvasEl, factor=50, fontSize=11)
   {
-    super(canvasEl, factor);
-    setItem("title", "Draw a point");
+    super(canvasEl, factor, fontSize);
     this.handleClick_draw = this.handleClick_draw.bind(this);
     this.handleClick_clear = this.handleClick_clear.bind(this);
+    setItem("title", "Draw a point");
   }
   
   /*=======================*/
@@ -30,8 +30,7 @@ class Point extends Draw
     this.ctx.arc(pointX, pointY, size, 0 * Math.PI, 2 * Math.PI);
     this.ctx.fill();
 
-    if (label)
-      this.drawLabel(pointX, pointY, label, 10, -10, color);
+    if (label) this.drawLabel(pointX, pointY, label, 10, -10, color, "Bold");
   }
 
   drawPoints()
@@ -50,7 +49,7 @@ class Point extends Draw
     const inputX = document.querySelector("#xAxis");
     const inputY = document.querySelector("#yAxis");
 
-    if (inputX.value === "" || inputY.value === "") alert("Enter the two values!!!");
+    if (inputX.value === "" || inputY.value === "") alert("Enter valid values!!!");
     else
     {
       const valueX = parseFloat(inputX.value);

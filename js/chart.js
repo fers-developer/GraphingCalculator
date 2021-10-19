@@ -3,12 +3,12 @@ import { colorHEX, } from "./colors.js";
 
 class Chart extends Draw
 {
-  constructor(canvasEl, factor = 50)
+  constructor(canvasEl, factor=50, fontSize=11)
   {
-    super(canvasEl, factor);
-    setItem("title", "Draw a bar chart");
+    super(canvasEl, factor, fontSize);
     this.handleClick_draw = this.handleClick_draw.bind(this);
     this.handleClick_clear = this.handleClick_clear.bind(this);
+    setItem("title", "Draw a bar chart");
   }
 
   /*=======================*/
@@ -29,15 +29,15 @@ class Chart extends Draw
 
     // Filling the Reactangle based on the input values
     this.ctx.beginPath();
-    this.ctx.fillStyle = color;
     this.ctx.globalAlpha = 0.5;
+    this.ctx.fillStyle = color;
     this.ctx.strokeStyle = "#000";
-    this.ctx.fillRect(pointX-25, pointY, barWidth, y);
+    this.ctx.fillRect(pointX-(this.factor/2), pointY, barWidth, y);
     this.ctx.globalAlpha = 1.0;
-    this.ctx.strokeRect(pointX-25, pointY, barWidth, y);
+    this.ctx.strokeRect(pointX-(this.factor/2), pointY, barWidth, y);
     this.ctx.closePath();
 
-    if (label) this.drawLabel(pointX, (pointY+(y/2)), label, 0, 0);
+    if (label) this.drawLabel(pointX, (pointY+(y/2)), label, 0, 0, null, "Bold");
   }
 
   drawBarCharts()
@@ -57,7 +57,7 @@ class Chart extends Draw
     const inputX = document.querySelector("#xAxis");
     const inputY = document.querySelector("#yAxis");
 
-    if (inputX.value === "" || inputY.value === "") alert("Enter the two values!!!");
+    if (inputX.value === "" || inputY.value === "") alert("Enter valid values!!!");
     else
     {
       const valueX = parseFloat(inputX.value);
