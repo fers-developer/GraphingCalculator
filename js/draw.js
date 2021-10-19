@@ -2,23 +2,32 @@ class Draw
 {
   constructor(canvasEl, factor, fontSize)
   {
+    // initializing class properties
     this.canvas = canvasEl;
     this.factor = factor;
     this.fontSize = fontSize;
     this.ctx = this.canvas.getContext("2d");
+    
+    // add this context
     this.render = this.render.bind(this);
     this.handleClick_home = this.handleClick_home.bind(this);
     this.handleClick_zoomIn = this.handleClick_zoomIn.bind(this);
     this.handleClick_zoomOut = this.handleClick_zoomOut.bind(this);
-    this.render();
+
+    // add a SessionStorage items
     setItem("letter", "A");
     setItem("points", {});
+
+    // call to render function
+    this.render();
   }
 
   render()
   {
+    // resize canvas when screen size changes
     this.resizeCanvas();
 
+    // get the center point of the canvas
     this.getOrigin();
 
     // draw the lines in axis X
@@ -29,11 +38,15 @@ class Draw
     for (let i = this.canvas.height; i > 0; i -= this.factor)
       this.drawLine(0, i, this.canvas.width, i, .3);
 
-    this.drawLine(this.originX*this.factor, this.canvas.height, this.originX*this.factor, 0, 1.5);
+    // draw the centerline of the Y-axis
     this.drawLine(0, this.canvas.height-(this.originY*this.factor), this.canvas.width, this.canvas.height-(this.originY*this.factor), 1.5);
+    // draw the centerline of the X-axis
+    this.drawLine(this.originX*this.factor, this.canvas.height, this.originX*this.factor, 0, 1.5);
 
+    // draw the numbers of the axes
     this.drawNumbers();
     
+    // get the last points
     this.getPoints();
   }
 
@@ -41,6 +54,7 @@ class Draw
   /*       DRAWING         */
   /*=======================*/
 
+  // Method to draw a line in Canvas
   drawLine(x1, y1, x2, y2, width) {
     this.ctx.beginPath();
     this.ctx.strokeStyle = "#000";
@@ -51,6 +65,7 @@ class Draw
     this.ctx.closePath();
   }
 
+  // Method to draw a text in Canvas
   drawLabel(x, y, label, size1=0, size2=0, color="#000", style="")
   {
     let pointX = Math.round(x);
@@ -66,7 +81,8 @@ class Draw
     this.ctx.closePath();
   }
 
-  drawNumbers(cx, cy)
+  // Method to draw the numbers of the axes
+  drawNumbers()
   {
     let count = 0;
 
@@ -95,6 +111,7 @@ class Draw
   /*       HANDLERS        */
   /*=======================*/
   
+  // Handler to reset the canvas and then render
   handleClick_home()
   {
     if (this.factor !== 50) 
@@ -106,6 +123,7 @@ class Draw
     }
   }
 
+  // Handler to zoom in the canvas and then render
   handleClick_zoomIn()
   {
     if (this.factor < 85) 
@@ -117,6 +135,7 @@ class Draw
     }
   }
 
+  // Handler to zoom out the canvas and then render
   handleClick_zoomOut()
   {
     if (this.factor > 20) 

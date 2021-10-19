@@ -1,29 +1,19 @@
-/*
-1. Posicionamiento
-2. Modelo de caja (Box model)
-3. Tipografía
-4. Visuales
-5. Otros
-*/
 :root
 {  
   /* Border */
-  --border-normal: 1px solid #dcdcdc;
+  --border-normal: 1px solid #DCDCDC;
   --border-control: 1px solid #E3E3E3;
-
   /* Box shadow */
   --shadow-header: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
   --shadow-section: 0 2px 4px -1px rgba(0,0,0,.2),0 1px 10px 0 rgba(0,0,0,.12),0 4px 5px 0 rgba(0,0,0,.14);
-  /* --shadow-button: 2px 2px 13px -1px rgba(101,87,210,0.5); */
   --shadow-button: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
   /* Colors */
-  --bg-color: #fff;
+  --bg-color: #FFF;
   --color-selected: #6557d2;
   --font-color: #757575;
   --font-color-control: #666666;
   --font-color-hover: rgba(0,0,0,.87);
   --footer-color: rgb(50, 50, 50);
-
   /* Fonts */
   --font: 'Rubik', sans-serif;
 }
@@ -376,7 +366,7 @@ header
       .panel-points::-webkit-scrollbar-thumb
       {
         border-radius: 4px;
-        background: #ccc;
+        background: #CCC;
       }
 
       .panel-points::-webkit-scrollbar-track
@@ -454,28 +444,28 @@ header
       transition: background-color 150ms ease 0ms;
     }
 
+      [class$="home"]
+      {
+        right: 10px;
+        bottom: 100px;
+      }
+
+      [class$="plus"]
+      {
+        right: 10px;
+        bottom: 60px;
+      }
+
+      [class$="minus"]
+      {
+        right: 10px;
+        bottom: 20px;
+      }
+
     [class^="canvas-container__btn"]:hover
     {
-      background-color: #eee;
+      background-color: #EEE;
       color: var(--font-color-hover);
-    }
-
-    [class$="home"]
-    {
-      right: 10px;
-      bottom: 100px;
-    }
-
-    [class$="plus"]
-    {
-      right: 10px;
-      bottom: 60px;
-    }
-
-    [class$="minus"]
-    {
-      right: 10px;
-      bottom: 20px;
     }
 
 /* ============== */

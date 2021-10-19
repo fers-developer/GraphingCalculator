@@ -1,3 +1,4 @@
+// Imports
 import Point from "./point.js";
 import Chart from "./chart.js";
 
@@ -7,7 +8,10 @@ let draw;
 // Main Function
 function main() 
 {
-  draw = new Point(canvas);
+  // instance of the Point class
+  draw = new Point(canvas); 
+
+  // add event handlers to the elements
   showHelp.addEventListener("mouseover", () => {    
     document.querySelector(".panel-help").classList.remove("hidden");
   });
@@ -21,31 +25,37 @@ function main()
 // Handler Toolbar
 function handleClick_toolbar(e)
 {
+  // get the correct target
   const elem = getTarget(e.target);
 
   if (elem && !elem.classList.contains("selected"))
   {
+    // get required values from the object
     const factor = draw.factor;
     const fontSize = draw.fontSize;
+    // get the title element of the panel
     const title = document.querySelector(".panel__title");
 
-    setEvents(true);
+    setEvents(true); // remove event handlers
     if (elem.children[1].children[0].textContent === "Point")
     {
+      // create a new instance of Point class
       draw = new Point(canvas, factor, fontSize);
       title.childNodes[0].textContent = getItem("title");
     }
     else 
     { 
+      // create a new instance of Chart class
       draw = new Chart(canvas, factor, fontSize);
       title.childNodes[0].textContent = getItem("title");
     }
-    setEvents();
+    setEvents(); // add event handlers
     toggleSelected(elem);
     document.querySelector(".panel-points").innerHTML = "";
   }
 }
 
+  // Function to obtain the correct target
   function getTarget(target)
   {
     if (target.tagName === "LI") return target;
@@ -58,6 +68,7 @@ function handleClick_toolbar(e)
   {
     if (flag)
     {
+      // remove all event handlers
       window.removeEventListener("resize", draw.render);    
       btnDraw.removeEventListener("click", draw.handleClick_draw);
       btnClear.removeEventListener("click", draw.handleClick_clear);
@@ -67,6 +78,7 @@ function handleClick_toolbar(e)
     }
     else 
     {
+      // add all event handlers
       window.addEventListener("resize", draw.render);
       btnDraw.addEventListener("click", draw.handleClick_draw);
       btnClear.addEventListener("click", draw.handleClick_clear);
@@ -76,6 +88,7 @@ function handleClick_toolbar(e)
     }
   }
 
+  // Function to change the selected option
   function toggleSelected(el)
   {
     const elems = document.querySelectorAll(".toolbar__item");
@@ -84,4 +97,5 @@ function handleClick_toolbar(e)
     el.classList.add("selected");
   }
 
+// Entry point
 main();
