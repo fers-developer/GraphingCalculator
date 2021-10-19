@@ -3,13 +3,12 @@ import { colorHEX, } from "./colors.js";
 
 class Point extends Draw
 {
-  constructor(canvasEl)
+  constructor(canvasEl, factor = 50)
   {
-    super(canvasEl);
-    this.render = this.render.bind(this);
+    super(canvasEl, factor);
+    setItem("title", "Draw a point");
     this.handleClick_draw = this.handleClick_draw.bind(this);
     this.handleClick_clear = this.handleClick_clear.bind(this);
-    setItem("title", "Draw a point");
   }
   
   /*=======================*/
@@ -18,8 +17,8 @@ class Point extends Draw
 
   drawPoint(x, y, label, color, size = 5)
   {
-    let pointX = (this.originX*50)+x;
-    let pointY = (this.originY*50)+y;
+    let pointX = (this.originX*this.factor)+x;
+    let pointY = (this.originY*this.factor)+y;
 
     // to increase smoothing for numbers with decimal part
     pointX = Math.round(pointX);
@@ -40,7 +39,7 @@ class Point extends Draw
     const points = getItem("points");
 
     for (const [key, value] of Object.entries(points))
-      this.drawPoint(value.x*50, value.y*50, key, value.color);
+      this.drawPoint(value.x*this.factor, value.y*this.factor, key, value.color);
   }
 
   /*=======================*/
@@ -64,7 +63,7 @@ class Point extends Draw
       inputX.value = "";
       inputY.value = "";
       this.addPoint(valueX, valueY, letter, color);
-      this.drawPoint(valueX*50, valueY*50, letter, color);
+      this.drawPoint(valueX*this.factor, valueY*this.factor, letter, color);
       setItem("letter", nextLetter);
       setItem("points", {
         ...points,
